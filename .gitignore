@@ -1,0 +1,12 @@
+/target
+
+# Linux
+*~
+
+# Rust
+/target
+**/*.rs.bk
+
+# VSCode
+.vscode/
+*.code-workspace
