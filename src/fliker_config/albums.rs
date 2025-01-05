@@ -3,19 +3,34 @@ use crate::fliker_config::utils::string_to_i32;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Album {
-    #[serde(deserialize_with = "string_to_i32")]
-    photo_count: i32,
-    id: String,
-    url: String,
-    title: String,
-    description: String,
-    #[serde(deserialize_with = "string_to_i32")]
-    view_count: i32,
-    created: String,
-    last_updated: String,
-    cover_photo: String,
-    photos: Vec<String>,
+    #[serde(rename = "photo_count", deserialize_with = "string_to_i32")]
+    pub photo_count: i32,
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "url")]
+    pub url: String,
+    #[serde(rename = "title")]
+    pub title: String,
+    #[serde(rename = "description")]
+    pub description: String,
+    #[serde(rename = "view_count", deserialize_with = "string_to_i32")]
+    pub view_count: i32,
+    #[serde(rename = "created")]
+    pub created: String,
+    #[serde(rename = "last_updated")]
+    pub last_updated: String,
+    #[serde(rename = "cover_photo")]
+    pub cover_photo: String,
+    #[serde(rename = "photos")]
+    pub photos: Vec<String>,
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Albums {
+    #[serde(rename = "albums")]
+    pub albums: Vec<Album>,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
