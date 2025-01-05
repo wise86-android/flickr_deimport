@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::fliker_config::utils::string_to_i32;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Geo {
@@ -17,36 +17,56 @@ pub struct Tag {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PhotoItem {
-    id: String,
-    name: String,
-    description: String,
-    #[serde(deserialize_with = "string_to_i32")]
-    count_views: i32,
-    #[serde(deserialize_with = "string_to_i32")]
-    count_faves: i32,
-    #[serde(deserialize_with = "string_to_i32")]
-    count_comments: i32,
-    date_taken: String,
-    #[serde(deserialize_with = "string_to_i32")]
-    count_tags: i32,
-    #[serde(deserialize_with = "string_to_i32")]
-    count_notes: i32,
-    rotation: i32,
-    date_imported: String,
-    photopage: String,
-    original: String,
-    license: String,
-    geo: Vec<Geo>,
-    groups: Vec<String>,
-    albums: Vec<String>,
-    tags: Vec<Tag>,
-    people: Vec<String>,
-    notes: Vec<String>,
-    privacy: String,
-    comment_permissions: String,
-    tagging_permissions: String,
-    safety: String,
-    comments: Vec<String>,
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "name")]
+    pub name: String,
+    #[serde(rename = "description")]
+    pub description: String,
+    #[serde(rename = "count_views", deserialize_with = "string_to_i32")]
+    pub count_views: i32,
+    #[serde(rename = "count_faves", deserialize_with = "string_to_i32")]
+    pub count_faves: i32,
+    #[serde(rename = "count_comments", deserialize_with = "string_to_i32")]
+    pub count_comments: i32,
+    #[serde(rename = "date_taken")]
+    pub date_taken: String,
+    #[serde(rename = "count_tags", deserialize_with = "string_to_i32")]
+    pub count_tags: i32,
+    #[serde(rename = "count_notes", deserialize_with = "string_to_i32")]
+    pub count_notes: i32,
+    #[serde(rename = "rotation")]
+    pub rotation: i32,
+    #[serde(rename = "date_imported")]
+    pub date_imported: String,
+    #[serde(rename = "photopage")]
+    pub photopage: String,
+    #[serde(rename = "original")]
+    pub original: String,
+    #[serde(rename = "license")]
+    pub license: String,
+    #[serde(rename = "geo")]
+    pub geo: Vec<Geo>,
+    #[serde(rename = "groups")]
+    pub groups: Vec<String>,
+    #[serde(rename = "albums")]
+    pub albums: Vec<String>,
+    #[serde(rename = "tags")]
+    pub tags: Vec<Tag>,
+    #[serde(rename = "people")]
+    pub people: Vec<String>,
+    #[serde(rename = "notes")]
+    pub notes: Vec<String>,
+    #[serde(rename = "privacy")]
+    pub privacy: String,
+    #[serde(rename = "comment_permissions")]
+    pub comment_permissions: String,
+    #[serde(rename = "tagging_permissions")]
+    pub tagging_permissions: String,
+    #[serde(rename = "safety")]
+    pub safety: String,
+    #[serde(rename = "comments")]
+    pub comments: Vec<String>,
 }
 
 #[cfg(test)]
