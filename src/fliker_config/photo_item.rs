@@ -1,18 +1,36 @@
 use crate::fliker_config::utils::string_to_i32;
 use serde::{Deserialize, Serialize};
 
+fn geo_coordinate_string_to_f32<'de, D>(deserializer: D) -> Result<f32, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    let s: String = Deserialize::deserialize(deserializer)?;
+    let value: i32 = s.parse().unwrap();
+    return Ok(value as f32 / 1000000.0);
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Geo {
-    latitude: String,
-    longitude: String,
-    accuracy: String,
+    #[serde(rename = "latitude", deserialize_with = "geo_coordinate_string_to_f32")]
+    pub latitude: f32,
+    #[serde(
+        rename = "longitude",
+        deserialize_with = "geo_coordinate_string_to_f32"
+    )]
+    pub longitude: f32,
+    #[serde(rename = "accuracy")]
+    pub accuracy: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Tag {
-    tag: String,
-    user: String,
-    date_create: String,
+    #[serde(rename = "tag")]
+    pub tag: String,
+    #[serde(rename = "user")]
+    pub user: String,
+    #[serde(rename = "date_create")]
+    pub date_create: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -93,8 +111,8 @@ mod tests {
             "license": "CC BY-SA",
             "geo": [
                 {
-                    "latitude": "40.7128",
-                    "longitude": "-74.0060",
+                    "latitude": "40712812",
+                    "longitude": "-740060",
                     "accuracy": "16"
                 }
             ],
@@ -133,8 +151,8 @@ mod tests {
         assert_eq!(photo_item.original, "http://example.com/photo/1/original");
         assert_eq!(photo_item.license, "CC BY-SA");
         assert_eq!(photo_item.geo.len(), 1);
-        assert_eq!(photo_item.geo[0].latitude, "40.7128");
-        assert_eq!(photo_item.geo[0].longitude, "-74.0060");
+        assert_eq!(photo_item.geo[0].latitude, 40.712812);
+        assert_eq!(photo_item.geo[0].longitude, -0.740060);
         assert_eq!(photo_item.geo[0].accuracy, "16");
         assert_eq!(photo_item.groups, vec!["group1", "group2"]);
         assert_eq!(photo_item.albums, vec!["album1", "album2"]);
